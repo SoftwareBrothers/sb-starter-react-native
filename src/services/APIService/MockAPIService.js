@@ -11,24 +11,24 @@ class MockAPIService {
   })
 
   auth = () => ({
-    signIn: async ({ email, password }) => {
+    signIn: async ({ password, username }) => {
       await this.delay()
 
       return this.mockResult({
         token: password,
         user: {
-          email,
+          email: username,
           id: 1,
         },
       })
     },
-    signUp: async ({ email, password }) => {
+    signUp: async ({ password, username }) => {
       await this.delay()
 
       return this.mockResult({
         token: password,
         user: {
-          email,
+          email: username,
           id: 1,
         },
       })

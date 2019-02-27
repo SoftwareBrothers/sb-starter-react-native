@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { API_URL } from 'react-native-dotenv'
 import LocalSession from '../../auth/LocalSession'
+import { navigate } from '../NavigationService'
 
-const JWT_AUTH_TOKEN_KEY = 'JWT_AUTH_TOKEN'
+const HTTP_UNAUTHORIZED_CODE = 401
 
 export class APIService {
   static instance
@@ -17,46 +18,57 @@ export class APIService {
 
   createInstance (customHost) {
     this.host = customHost || API_URL
-    this.defaultHeaders = {}
+    this.defaultHeaders = {
+      'Content-Type': 'application/json',
+    }
     this.http = axios.create({
       baseURL: this.host,
       headers: this.defaultHeaders,
       timeout: 1000,
     })
+    this.http.interceptors.response.use((response) => response, (error) => {
+      if (error.response.status === HTTP_UNAUTHORIZED_CODE) {
+        navigate('Auth')
+      }
+    })
 
     APIService.instance = this
   }
 
-  getAuthorizedCallConfig = async (config) => {
-    const token = await LocalSession.loadRecord(JWT_AUTH_TOKEN_KEY)
+  getAuthorizedCallConfig = async (config, options = {}) => {
+    const token = await LocalSession.getSession()
+
+    if (options.disableHeaders) {
+      return config
+    }
 
     return {
       ...config,
       headers: {
         ...this.defaultHeaders,
-        Authorization: `Bearer ${token}`,
+        'X-Auth-Token': token,
       },
     }
   }
 
   client = () => ({
-    delete: async (params, config = {}) => {
-      const callConfig = await this.getAuthorizedCallConfig(config)
+    delete: async (params, config = {}, options = {}) => {
+      const callConfig = await this.getAuthorizedCallConfig(config, options)
 
       return this.http.delete(params, callConfig)
     },
-    get: async (params, config = {}) => {
-      const callConfig = await this.getAuthorizedCallConfig(config)
+    get: async (params, config = {}, options = {}) => {
+      const callConfig = await this.getAuthorizedCallConfig(config, options)
 
       return this.http.get(params, callConfig)
     },
-    post: async (params, data, config = {}) => {
-      const callConfig = await this.getAuthorizedCallConfig(config)
+    post: async (params, data, config = {}, options = {}) => {
+      const callConfig = await this.getAuthorizedCallConfig(config, options)
 
       return this.http.post(params, data, callConfig)
     },
-    put: async (params, data, config = {}) => {
-      const callConfig = await this.getAuthorizedCallConfig(config)
+    put: async (params, data, config = {}, options = {}) => {
+      const callConfig = await this.getAuthorizedCallConfig(config, options)
 
       return this.http.put(params, data, callConfig)
     },

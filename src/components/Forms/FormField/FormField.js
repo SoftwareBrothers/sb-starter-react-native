@@ -11,7 +11,7 @@ const FormField = (props) => {
     disabled,
     formik: {
       handleBlur,
-      handleChange,
+      setFieldValue,
       values,
     },
     name,
@@ -23,7 +23,7 @@ const FormField = (props) => {
     <View style={buildFieldWrapperStyle(props)}>
       <TextInput
         style={buildFieldStyle(props)}
-        onChangeText={handleChange(name)}
+        onChangeText={(text) => setFieldValue(name, text)}
         onBlur={handleBlur(name)}
         value={values[name]}
 

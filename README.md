@@ -6,7 +6,7 @@
 
       `npm install react-native-rename -g`
 
-      `react-native-rename "AppNAme" -b com.example.app`
+      `react-native-rename "AppName" -b com.example.app`
 
       See [readme of react-native-rename](https://github.com/junedomingo/react-native-rename) for more details
 1. Install npm dependencies
@@ -21,6 +21,8 @@
       react-native run-ios
 
 3. If you dont change native bindings/libraries, you can launch the app on simulator/device and use command `npm start` to launch metro bundler and refresh the app so that it can fetch latest JS package.
+
+4. Detailed instructions for environment setup are available on [the official documentation](https://facebook.github.io/react-native/docs/getting-started.html)
 
 ## What's inside
 

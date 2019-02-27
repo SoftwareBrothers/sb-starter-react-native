@@ -17,6 +17,7 @@
     "react-native": "0.58.3",
     "react-native-dotenv": "^0.2.0",
     "react-native-gesture-handler": "^1.0.15",
+    "react-native-network-status-saga": "^1.0.0",
     "react-native-svg": "^9.2.3",
     "react-navigation": "^3.0.9",
     "react-redux": "^6.0.0",

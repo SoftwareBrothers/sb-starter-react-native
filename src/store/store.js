@@ -1,13 +1,21 @@
 import { createStore, compose, applyMiddleware } from 'redux'
+import { persistStore } from 'redux-persist'
 import { createLogger } from 'redux-logger'
 import createSagaMiddleware from 'redux-saga'
 import { isDevelopment } from '../constants/Env'
-import rootSaga from './sagas/rootSaga'
-import makeRootReducer from './reducers/rootReducer'
+import rootSaga from './rootSaga'
+import makeRootReducer from './rootReducer'
 
 export default (initialState = {}) => {
   const middleware = []
   const enhancers = []
+
+  /* redux-immutable-state-invariant */
+  if (isDevelopment) {
+    // eslint-disable-next-line
+    const invariant = require('redux-immutable-state-invariant').default()
+    middleware.push(invariant)
+  }
 
   /* Logger */
   if (isDevelopment) {
@@ -32,8 +40,13 @@ export default (initialState = {}) => {
     ),
   )
 
+  const persistor = persistStore(store)
+
   /* Start saga runner */
   sagaMiddleware.run(rootSaga)
 
-  return store
+  return {
+    persistor,
+    store,
+  }
 }

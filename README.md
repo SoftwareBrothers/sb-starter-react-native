@@ -1,10 +1,18 @@
 # Software Brothers React Native Starter Kit
 
 ### How do I get set up? ###
+1. Rename the app
+      By default, the app is named as `ReactNativeStarterKit`. You should change that name using react-native-rename:
+
+      `npm install react-native-rename -g`
+
+      `react-native-rename "AppNAme" -b com.example.app`
+
+      See [readme of react-native-rename](https://github.com/junedomingo/react-native-rename) for more details
 1. Install npm dependencies
-      npm install
+      `npm install`
 2. Install React Native CLI
-      npm install -g react-native-cli
+      `npm install -g react-native-cli`
 2. Running app on a simulator or virtual device
       If you want to run app on the iOS Simulator install Xcode.
       

@@ -7,10 +7,12 @@ export const setTopLevelNavigator = (navigatorRef) => {
 }
 
 export const navigate = (routeName, params) => {
-  navigator.dispatch(
-    NavigationActions.navigate({
-      params,
-      routeName,
-    }),
-  )
+  if (navigator) {
+    navigator.dispatch(
+      NavigationActions.navigate({
+        params,
+        routeName,
+      }),
+    )
+  }
 }

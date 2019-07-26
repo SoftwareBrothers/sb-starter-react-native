@@ -30,6 +30,8 @@ export class APIService {
       if (error.response.status === HTTP_UNAUTHORIZED_CODE) {
         navigate('Auth')
       }
+
+      return Promise.reject(error)
     })
 
     APIService.instance = this

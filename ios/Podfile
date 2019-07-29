@@ -33,10 +33,3 @@ target 'ReactNativeStarterKit' do
   end
   use_native_modules!
 end
-target 'ReactNativeStarterKit-tvOS' do
-  # Pods for ReactNativeStarterKit-tvOS
-  target 'ReactNativeStarterKit-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-end

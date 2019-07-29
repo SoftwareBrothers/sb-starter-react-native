@@ -60,3 +60,6 @@ buck-out/
 
 *.env*
 !.env.example
+
+# react-native-config codegen
+ios/tmp.xcconfig

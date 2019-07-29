@@ -28,6 +28,7 @@
     "redux-persist-filesystem-storage": "^1.4.1",
     "redux-saga": "^1.0.5",
     "reselect": "^4.0.0",
+    "rn-fetch-blob": "^0.10.16",
     "yup": "^0.27.0"
   },
   "devDependencies": {

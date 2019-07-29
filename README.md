@@ -31,6 +31,13 @@
 
 4. Detailed instructions for environment setup are available on [the official documentation](https://facebook.github.io/react-native/docs/getting-started.html)
 
+## App environments
+App supports multiple environmnets and env files - local, dev, staging, production. You can generate env files for each environment by running:
+
+      $ chmod +x create_envs.sh
+      $ ./create_envs.sh
+
+
 ## What's inside
 
 ### Features

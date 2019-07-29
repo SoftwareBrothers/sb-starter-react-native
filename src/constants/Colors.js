@@ -1,9 +1,12 @@
 const tintColor = '#2f95dc'
 const white = '#fff'
+const errorColor = 'red'
 
 export default {
   appBackground: white,
-  errorBackground: 'red',
+  black: 'black',
+  error: errorColor,
+  errorBackground: errorColor,
   errorText: white,
   noticeBackground: tintColor,
   noticeText: white,
@@ -13,4 +16,5 @@ export default {
   tintColor,
   warningBackground: '#EAEB5E',
   warningText: '#666804',
+  white,
 }

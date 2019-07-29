@@ -6,6 +6,11 @@ module.exports = {
     es6: true,
     jest: true
   },
+  settings: {
+    react: {
+      version: "detect",
+    }
+  },
   parser: "babel-eslint",
   parserOptions: {
     sourceType: "module",

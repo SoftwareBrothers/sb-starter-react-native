@@ -19,7 +19,6 @@ module.exports = {
     "react-native"
   ],
   extends: [
-    "@react-native-community",
     "eslint:recommended",
     "airbnb-base",
     "plugin:react/recommended",

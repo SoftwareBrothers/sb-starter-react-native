@@ -1,0 +1,4 @@
+// React Native Config
+//  https://github.com/luggit/react-native-config#availability-in-build-settings-and-infoplist
+
+#include? "tmp.xcconfig"

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { API_URL } from 'react-native-dotenv'
+import Config from 'react-native-config'
 import LocalSession from '../../auth/LocalSession'
 import { navigate } from '../NavigationService'
 
@@ -17,7 +17,7 @@ export class APIService {
   }
 
   createInstance (customHost) {
-    this.host = customHost || API_URL
+    this.host = customHost || Config.API_URL
     this.defaultHeaders = {
       'Content-Type': 'application/json',
     }

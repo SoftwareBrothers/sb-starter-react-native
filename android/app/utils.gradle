@@ -1,0 +1,13 @@
+def Properties loadProperties(propertiesFilePath) {
+    def propertiesFile = rootProject.file(propertiesFilePath)
+    def properties = new Properties()
+    if (propertiesFile.exists()) {
+        properties.load(new FileInputStream(propertiesFile))
+    }
+
+    return properties
+}
+
+ext {
+  loadProperties = this.&loadProperties
+}

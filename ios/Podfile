@@ -25,16 +25,11 @@ target 'ReactNativeStarterKit' do
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+  pod 'react-native-config', :path => '../node_modules/react-native-config'
+
   target 'ReactNativeStarterKitTests' do
     inherit! :search_paths
     # Pods for testing
   end
   use_native_modules!
-end
-target 'ReactNativeStarterKit-tvOS' do
-  # Pods for ReactNativeStarterKit-tvOS
-  target 'ReactNativeStarterKit-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
 end

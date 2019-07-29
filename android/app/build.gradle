@@ -1,4 +1,20 @@
 apply plugin: "com.android.application"
+apply from: "./utils.gradle"
+
+// react-native-config Config
+project.ext.envConfigFiles = [
+    debug: ".env.local",
+    localdebug: ".env.local",
+    localrelease: ".env.local",
+    developdebug: ".env.develop",
+    developrelease: ".env.develop",
+    stagingdebug: ".env.staging",
+    stagingrelease: ".env.staging",
+    productiondebug: ".env.production",
+    productionrelease: ".env.production",
+]
+
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 import com.android.build.OutputFile
 
@@ -118,6 +134,11 @@ def jscFlavor = 'org.webkit:android-jsc:+'
  */
 def enableHermes = project.ext.react.get("enableHermes", false);
 
+/**
+ * Project specific configs
+ */
+def keystoreProperties = loadProperties("keystore.properties")
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -133,6 +154,20 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    flavorDimensions "version"
+    productFlavors {
+        local {
+            applicationIdSuffix project.env.get("APP_ID_SUFFIX")
+        }
+        develop {
+            applicationIdSuffix project.env.get("APP_ID_SUFFIX")
+        }
+        staging {
+            applicationIdSuffix project.env.get("APP_ID_SUFFIX")
+        }
+        production {
+        }
+  }
     splits {
         abi {
             reset()
@@ -148,6 +183,14 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            if (keystoreProperties['storeFile']) {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            }
+        }
     }
     buildTypes {
         debug {
@@ -156,6 +199,10 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            productFlavors.local.signingConfig signingConfigs.release
+            productFlavors.develop.signingConfig signingConfigs.release
+            productFlavors.staging.signingConfig signingConfigs.release
+            productFlavors.production.signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
@@ -183,7 +230,6 @@ android {
 }
 
 dependencies {
-    implementation project(':rn-fetch-blob')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
 

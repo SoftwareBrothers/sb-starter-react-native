@@ -38,7 +38,9 @@ export function* onAuthenticate () {
         yield put(setUserData(userData))
         yield put(authenticationSuccess(userData))
       } else {
-        yield call(() => navigate('App'))
+        // Device is offline, but still has auth information -
+        // optimistically assume that app is still authorized
+        yield put(authenticationSuccess())
       }
     } else {
       throw new AuthException()
@@ -47,9 +49,7 @@ export function* onAuthenticate () {
     /* You may update locally stored session data here (e.g. refreshed token) */
     // yield call(() => LocalSession.setSession({ token }))
   } catch (exception) {
-    Log.warn(exception)
     yield put(authenticationError())
-    yield call(onSignOut)
   } finally {
     yield put({ payload: false, type: IS_AUTHENTICATING })
   }

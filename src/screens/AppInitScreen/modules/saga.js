@@ -6,8 +6,8 @@ import {
 } from 'redux-saga/effects'
 import { INITIALIZE_APP } from './constants'
 import Log from '../../../lib/Logger'
-import { authenticate } from '../../../auth/FSAs'
-import { AUTHENTICATE_SUCCESS } from '../../../auth/constants'
+import { authenticate, signOut } from '../../../auth/FSAs'
+import { AUTHENTICATE_SUCCESS, AUTHENTICATE_ERROR } from '../../../auth/constants'
 import { navigate } from '../../../services/NavigationService'
 
 export default function* appInitScreenFlow () {
@@ -17,11 +17,14 @@ export default function* appInitScreenFlow () {
 function* onInitializeApp () {
   try {
     yield put(authenticate())
-    yield take([AUTHENTICATE_SUCCESS])
+    const { type } = yield take([AUTHENTICATE_SUCCESS, AUTHENTICATE_ERROR])
 
-    /* Fetch mission-critical API resources here */
-
-    yield call(() => navigate('Home'))
+    if (type === AUTHENTICATE_SUCCESS) {
+      /* Fetch mission-critical API resources here */
+      yield call(() => navigate('Home'))
+    } else {
+      yield put(signOut())
+    }
   } catch (exception) {
     Log.warn(exception)
   }

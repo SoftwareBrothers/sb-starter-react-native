@@ -8,7 +8,8 @@
 
       `react-native-rename "AppName" -b com.example.app`
 
-      See [readme of react-native-rename](https://github.com/junedomingo/react-native-rename) for more details
+      See [readme of react-native-rename](https://github.com/junedomingo/react-native-rename) for more details.
+      Perform a project search and make sure `ReactNativeStarterKit` is replaced with `AppName` of your choice.
 1. Install npm dependencies
 
       `npm install`
@@ -37,6 +38,18 @@ App supports multiple environmnets and env files - local, dev, staging, producti
       $ chmod +x create_envs.sh
       $ ./create_envs.sh
 
+### Android
+
+List of commands (Flavor = Local || Develop || Staging || Production):
+
+- assembleFlavorDebug - builds debug APK of flavor
+- assembleFlavorRelease - builds release APK of flavor
+- installFlavorDebug - installs debug version of given flavor on device/emulator
+- installFlavorRelease - installs release version of given flavor on device/emulator
+
+### iOS
+
+You can switch between schemas and rebuild the app to access other flavors / envs of the app.
 
 ## What's inside
 

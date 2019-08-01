@@ -1,4 +1,3 @@
-import { List, Record } from 'immutable'
 import { AUTHENTICATE_SUCCESS } from '../../auth/constants'
 import {
   FETCHING_BOOKS_FAILED,
@@ -6,15 +5,15 @@ import {
   SET_BOOKS,
 } from './constants'
 
-const InitialState = Record({
+const initialState = {
   didFail: false,
   isFetching: false,
-  results: new List(),
-})
+  results: [],
+}
 
 const ACTION_HANDLERS = {
   [AUTHENTICATE_SUCCESS]: () => (
-    new InitialState()
+    initialState
   ),
   [FETCHING_BOOKS_FAILED]: (state) => (
     state.set('didFail', true)
@@ -24,18 +23,18 @@ const ACTION_HANDLERS = {
   ),
   [SET_BOOKS]: (state, action) => (
     state.withMutations((ctx) => {
-      ctx.set('results', List(action.payload))
+      ctx.set('results', action.payload)
       ctx.set('didFail', false)
     })
   ),
 }
 
-const initialState = new InitialState()
-
-export default function reducer (state = initialState, action) {
-  if (!(state instanceof InitialState)) return initialState.mergeDeep(state)
+const reducer = (state = initialState, action) => {
+  if (!state) return initialState
 
   const handler = ACTION_HANDLERS[action.type]
 
   return handler ? handler(state, action) : state
 }
+
+export default reducer

@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { AsyncStorage } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 import { LocalStorageException } from '../exceptions'
 
 export default class AsyncStorageHelper {

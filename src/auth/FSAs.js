@@ -25,8 +25,7 @@ export const authenticate = () => ({
   type: AUTHENTICATE_START,
 })
 
-export const authenticationSuccess = (userData) => ({
-  payload: userData,
+export const authenticationSuccess = () => ({
   type: AUTHENTICATE_SUCCESS,
 })
 
